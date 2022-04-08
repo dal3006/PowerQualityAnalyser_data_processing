@@ -24,10 +24,12 @@ def plot_serie_temporelle(df, column):
     if not os.path.exists(path_folder):  # Verification d'existence de ce path
         os.mkdir(path_folder)  # Sinon création du dossier
     fname = path_folder + column + '.png'
-    plt.savefig(fname=fname, dpi=200)
-    plt.show()
+    #plt.savefig(fname=fname, dpi=200)
+    #plt.show()
     return 'Done'
 
+df_data['i_moy']=(df_data['A1 rms']+df_data['A2 rms']+df_data['A3 rms'])/3
+(df_data['A1 rms']*df_data['A1 rms']+df_data['A2 rms']*df_data['A2 rms']+df_data['A3 rms']*df_data['A3 rms'])/(3*df_data['i_moy']*df_data['i_moy'])
 #BLABLABLA
     #
     #
