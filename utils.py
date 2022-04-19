@@ -25,19 +25,20 @@ def plot_serie_temporelle(df, column):
         os.mkdir(path_folder)  # Sinon création du dossier
     fname = path_folder + column + '.png'
     #plt.savefig(fname=fname, dpi=200)
-    #plt.show()
+    plt.show()
     return 'Done'
 
-df_data['i_moy']=(df_data['A1 rms']+df_data['A2 rms']+df_data['A3 rms'])/3
-(df_data['A1 rms']*df_data['A1 rms']+df_data['A2 rms']*df_data['A2 rms']+df_data['A3 rms']*df_data['A3 rms'])/(3*df_data['i_moy']*df_data['i_moy'])
-#BLABLABLA
+#df_data['i_moy']=(df_data['A1 rms']+df_data['A2 rms']+df_data['A3 rms'])/3
+#df_data['K_des']=(df_data['A1 rms']*df_data['A1 rms']+df_data['A2 rms']*df_data['A2 rms']+df_data['A3 rms']*df_data['A3 rms'])/(3*df_data['i_moy']*df_data['i_moy'])
+
+#A completer proprement en s'inspirante de code fait pour le scada GE
     #
     #
     #
     # #Création de H_max et H_pertes
     #
     # #Calcul de H_max
-    # data_sorted_monotone = data_sorted.apply(lambda x: x.sort_values(ascending=False).values) #Le ffil complete le pas horaire et non le pas au 1/4 adms
+    # data_sorted_monotone = data_sorted.apply(lambda x: x.sort_values(ascending=False).values) #Le ffil complete le pas horaire different du quart d'heure de l'adms
     # data_sorted_monotone=data_sorted_monotone/df_max #division par P_max
     #
     # data_sorted_monotone=data_sorted_monotone.reset_index(drop=True)
