@@ -28,6 +28,37 @@ def plot_serie_temporelle(df, column):
     plt.show()
     return 'Done'
 
+def calcul_grandeurs_caracteristiques(df_data):
+
+    column_name_dt='sT(Va)'
+    point_par_heure=6
+    #Monotone
+    df_data['monotone_S_VA']= df_data[column_name_dt]
+    df_data['monotone_S_VA'] = df_data['monotone_S_VA'].apply(lambda x: x.sort_values(ascending=False).values)
+    # df_data['monotone_S_VA']=df_data['monotone_S_VA']/df_max #division par P_max
+
+    # data_sorted_monotone.iloc[:,3].plot()
+    p_max=df_data['monotone_S_VA'].max()
+    e_consom=df_data['monotone_S_VA'].sum()/point_par_heure
+    h_max=e_consom/p_max
+
+    #Creation i_moy et k_des
+    df_data['i_moy'] = (df_data['a1_rms'] + df_data['a2_rms'] + df_data['a3_rms']) / 3
+    df_data['K_des'] = (df_data['a1_rms'] * df_data['a1_rms'] + df_data['a2_rms'] * df_data['a2_rms'] + df_data[
+        'a3_rms'] * df_data['a3_rms']) / (3 * df_data['i_moy'] * df_data['i_moy'])
+
+    return df_data,p_max,e_consom,h_max
+
+def sauvegarde_variable():
+
+    return
+
+def sauvegarde_plot():
+
+    return 1
+
+
+
 #df_data['i_moy']=(df_data['A1 rms']+df_data['A2 rms']+df_data['A3 rms'])/3
 #df_data['K_des']=(df_data['A1 rms']*df_data['A1 rms']+df_data['A2 rms']*df_data['A2 rms']+df_data['A3 rms']*df_data['A3 rms'])/(3*df_data['i_moy']*df_data['i_moy'])
 
