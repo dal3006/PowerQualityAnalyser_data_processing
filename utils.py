@@ -20,38 +20,53 @@ def plot_serie_temporelle(df, column):
     plt.clf()
     print(df[column])
     df.plot(y=column)
-    path_folder = 'output\\Courbes de charge\\'
+    path_folder = 'output//'
     if not os.path.exists(path_folder):  # Verification d'existence de ce path
         os.mkdir(path_folder)  # Sinon création du dossier
-    fname = path_folder + column + '.png'
+
+    path_folder_poste_i = path_folder + self.codification_poste + '//'
+    if not os.path.exists(path_folder_poste_i):  # Verification d'existence de ce path
+        os.mkdir(path_folder_poste_i)  # Sinon création du dossier
+
+
+    fname = path_folder_poste_i + column + '.png'
     #plt.savefig(fname=fname, dpi=200)
     plt.show()
     return 'Done'
 
 def calcul_grandeurs_caracteristiques(df_data):
 
-    column_name_dt='sT(Va)'
-    point_par_heure=6
+    column_name_dt='st_va'
+    column_name_p_total='pt_w'
+    point_par_heure=60
     #Monotone
-    df_data['monotone_S_VA']= df_data[column_name_dt]
-    df_data['monotone_S_VA'] = df_data['monotone_S_VA'].apply(lambda x: x.sort_values(ascending=False).values)
-    # df_data['monotone_S_VA']=df_data['monotone_S_VA']/df_max #division par P_max
+    # df_data['monotone_s_va']= df_data[column_name_dt]
+    # df_data['monotone_s_va'] = df_data['monotone_s_va'].apply(lambda x: x.sort_values(ascending=False).values)
+    df_data['monotone_s_va'] = df_data.apply(lambda x: x.sort_values(ascending=False).values)[column_name_dt]
+    # df_data['monotone_s_va']=df_data['monotone_s_va']/df_max #division par P_max
 
-    # data_sorted_monotone.iloc[:,3].plot()
-    p_max=df_data['monotone_S_VA'].max()
-    e_consom=df_data['monotone_S_VA'].sum()/point_par_heure
-    h_max=e_consom/p_max
+
+    s_max_kva=df_data['monotone_s_va'].max()/1000
+    p_max_kw=df_data[column_name_p_total].max()/1000
+
+    e_consom_kwh=df_data[column_name_p_total].sum()/point_par_heure/1000
+    e_consom_kvah=df_data['monotone_s_va'].sum()/point_par_heure/1000
+
+    h_max=e_consom_kvah/s_max_kva
+    h_total_analyse=len(df_data)/60
 
     #Creation i_moy et k_des
     df_data['i_moy'] = (df_data['a1_rms'] + df_data['a2_rms'] + df_data['a3_rms']) / 3
     df_data['K_des'] = (df_data['a1_rms'] * df_data['a1_rms'] + df_data['a2_rms'] * df_data['a2_rms'] + df_data[
         'a3_rms'] * df_data['a3_rms']) / (3 * df_data['i_moy'] * df_data['i_moy'])
 
-    return df_data,p_max,e_consom,h_max
+    k_des=df_data['K_des'].mean()
+
+    return df_data,s_max_kva,p_max_kw,e_consom_kwh,e_consom_kvah,h_max,k_des,h_total_analyse
 
 def sauvegarde_variable():
 
-    return
+    return 1
 
 def sauvegarde_plot():
 
