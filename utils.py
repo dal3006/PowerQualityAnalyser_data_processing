@@ -16,21 +16,23 @@ def timestamp_creation(df_data):
     return df_data
 
 
-def plot_serie_temporelle(df, column):
+def plot_serie_temporelle(df, name_column, nom_poste):
+    if name_column == 'monotone_s_va':
+        df.reset_index(inplace=True)
     plt.clf()
-    print(df[column])
-    df.plot(y=column)
-    path_folder = 'output//'
+    print(df[name_column])
+    df.plot(y=name_column)
+    path_folder = '..//LV_losses_SENELEC//output//'
     if not os.path.exists(path_folder):  # Verification d'existence de ce path
         os.mkdir(path_folder)  # Sinon création du dossier
 
-    path_folder_poste_i = path_folder + self.codification_poste + '//'
+    path_folder_poste_i = path_folder + nom_poste + '//Courbes Analyseur//'
     if not os.path.exists(path_folder_poste_i):  # Verification d'existence de ce path
         os.mkdir(path_folder_poste_i)  # Sinon création du dossier
 
 
-    fname = path_folder_poste_i + column + '.png'
-    #plt.savefig(fname=fname, dpi=200)
+    fname = path_folder_poste_i + name_column + '.png'
+    plt.savefig(fname=fname, dpi=200)
     plt.show()
     return 'Done'
 

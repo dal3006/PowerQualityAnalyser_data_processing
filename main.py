@@ -40,15 +40,15 @@ print(source_folder_path)
 source_liste_postes_path= path_project_folder + r'\LV_losses_SENELEC\1.Sources\4. Enquete terrain'
 # liste_postes = pd.read_csv(filepath_or_buffer=source_liste_postes_path + r'\liste_postes.txt')['nom poste'].values
 liste_postes=['ZGACB','ZGCB','ZGD','ZGF']   #Modélisation sur un réseau spécifique
-liste_postes=['ZGACB']   #Modélisation sur un réseau spécifique
+# liste_postes=['ZGACB']   #Modélisation sur un réseau spécifique
 
 
 
-for nom_poste_fichier_txt in liste_postes:  # test de la presence du nom de poste txt dans les noms de poste csv
-    source_xlsx_analyseur = path_project_folder + r'\LV_losses_SENELEC\1.Sources\2. Analyseur\8336_190277MMH 1800_Enregistrement_' + nom_poste_fichier_txt + '.xlsx'
+for nom_poste in liste_postes:  # test de la presence du nom de poste txt dans les noms de poste csv
+    source_xlsx_analyseur = path_project_folder + r'\LV_losses_SENELEC\1.Sources\2. Analyseur\8336_190277MMH 1800_Enregistrement_' + nom_poste + '.xlsx'
 
     #Paths données enquetes
-    source_poste_folder_path= source_folder_path +'\\Analyses_individuels\\'+ nom_poste_fichier_txt
+    source_poste_folder_path= source_folder_path +'\\Analyses_individuels\\' + nom_poste
     print(source_poste_folder_path)
 
     #Récupérationn des csv
@@ -82,9 +82,9 @@ for nom_poste_fichier_txt in liste_postes:  # test de la presence du nom de post
     postes_csv['h_total_analyse']=h_total_analyse
 
     for name_column in df_data.columns:
-        if name_column=='sT(Va)' or name_column=='monotone_s_va':   #Selection
+        if name_column=='st_va' or name_column=='monotone_s_va':   #Selection
             print(name_column)
-            utils.plot_serie_temporelle(df_data,name_column)
+            utils.plot_serie_temporelle(df_data,name_column,nom_poste)
             # utils.plot_serie_temporelle(df_data,'PT (W)')
 
     postes_csv.to_csv(path_or_buf=path_poste_csv, sep=';', index=False)
