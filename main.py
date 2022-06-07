@@ -38,8 +38,8 @@ print(source_folder_path)
 # source_folder_path=path_project_folder + r'\1.Sources\4. Enquete terrain\2022-05-09'
 
 source_liste_postes_path= path_project_folder + r'\LV_losses_SENELEC\1.Sources\4. Enquete terrain'
-# liste_postes = pd.read_csv(filepath_or_buffer=source_liste_postes_path + r'\liste_postes.txt')['nom poste'].values
-liste_postes=['ZGACB','ZGCB','ZGD','ZGF']   #Modélisation sur un réseau spécifique
+liste_postes = pd.read_csv(filepath_or_buffer=source_liste_postes_path + r'\liste_postes.txt')['nom poste'].values
+# liste_postes=['ZGACB','ZGCB','ZGD','ZGF']   #Modélisation sur un réseau spécifique
 # liste_postes=['ZGACB']   #Modélisation sur un réseau spécifique
 
 
@@ -55,6 +55,14 @@ for nom_poste in liste_postes:  # test de la presence du nom de poste txt dans l
     path_poteaux_csv = source_poste_folder_path + r'\Cleaned_files\validated_poteaux.csv'
     path_poste_csv = source_poste_folder_path + r'\Cleaned_files\validated_postes.csv'
     path_clients_csv = source_poste_folder_path + r'\Cleaned_files\validated_clients.csv'
+
+    if not os.path.exists(source_xlsx_analyseur) :
+        print(source_xlsx_analyseur + ' does not exist !')
+        continue
+    if not os.path.exists(path_poste_csv):
+        print(path_poste_csv + ' does not exist !')
+        continue
+
     #Récupérationn des csv
     # poteaux_csv = pd.read_csv(path_poteaux_csv, encoding='utf-8', sep=';')
     postes_csv = pd.read_csv(path_poste_csv, encoding='utf-8', sep=';')
