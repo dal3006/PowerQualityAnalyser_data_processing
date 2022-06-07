@@ -102,4 +102,7 @@ print('done !! hura')
 
 
 
-
+#
+# df_data['i_moy'] = (df_data['a1_rms'] + df_data['a2_rms'] + df_data['a3_rms']) / 3
+# df_data['K_des'] = (df_data['a1_rms'] * df_data['a1_rms'] + df_data['a2_rms'] * df_data['a2_rms'] + df_data[
+#     'a3_rms'] * df_data['a3_rms']) / (3 * df_data['i_moy'] * df_data['i_moy'])
