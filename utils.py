@@ -20,7 +20,7 @@ def plot_serie_temporelle(df, name_column, nom_poste):
     if name_column == 'monotone_s_va':
         df.reset_index(inplace=True)
     plt.clf()
-    print(df[name_column])
+    # print(df[name_column])
     df.plot(y=name_column)
     path_folder = '..//LV_losses_SENELEC//output//'
     if not os.path.exists(path_folder):  # Verification d'existence de ce path
