@@ -6,7 +6,7 @@ import datetime
 import os
 import matplotlib.pyplot as plt
 
-path_folder = r'data'
+path_folder = r'OLD/data'
 path_input_files = glob.glob(path_folder + "\\*.xls*")
 columns_name_xlsx = ['Date:', 'Heure:'
 ,'P1 (W)', 'P2 (W)', 'P3 (W)', 'PT (W)', 'Q1 (var)', 'Q2 (var)', 'Q3 (var)', 'QT (var)', 'S1 (VA)', 'S2 (VA)', 'S3 (VA)', 'ST (VA)'
@@ -74,10 +74,7 @@ for nom_poste in liste_postes:  # test de la presence du nom de poste txt dans l
     df_data = utils.timestamp_creation(df_data)
     print('xlsx read')
     # df_data.rename(str.lower.replace(' ','_'), axis='columns',inplace=True)
-    df_data.columns = (x.lower().replace(' ', '_').replace('(', '').replace(')', '') for x in df_data.columns)
-
-    # df_data.columns=columns_name
-
+    df_data.columns = (x.lower().replace(' ', '_').replace('(', '').replace(')', '').replace('é','e').replace('1/2', 'demi') for x in df_data.columns)
 
     [df_data,s_max_kva,p_max_kw,e_consom_kwh,e_consom_kvah,h_max,k_des,h_total_analyse]=utils.calcul_grandeurs_caracteristiques(df_data)
 
@@ -95,7 +92,7 @@ for nom_poste in liste_postes:  # test de la presence du nom de poste txt dans l
             print(name_column)
             utils.plot_serie_temporelle(df_data,name_column,nom_poste)
             # utils.plot_serie_temporelle(df_data,'PT (W)')
-
+    utils.save_data(df_data,nom_poste)
     postes_csv.to_csv(path_or_buf=path_poste_csv, sep=';', index=False)
 
 print('done !! hura')

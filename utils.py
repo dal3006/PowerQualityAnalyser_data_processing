@@ -39,6 +39,23 @@ def plot_serie_temporelle(df, name_column, nom_poste):
     plt.show()
     return 'Done'
 
+def save_data(df, nom_poste):
+    path_folder = '..//LV_losses_SENELEC//output//'
+    if not os.path.exists(path_folder):  # Verification d'existence de ce path
+        os.mkdir(path_folder)  # Sinon création du dossier
+
+    if not os.path.exists(path_folder + nom_poste):  # Verification d'existence de ce path
+        os.mkdir(path_folder + nom_poste)  # Sinon création du dossier
+
+    path_folder_poste_i = path_folder + nom_poste + '//Courbes Analyseur//'
+    if not os.path.exists(path_folder_poste_i):  # Verification d'existence de ce path
+        os.mkdir(path_folder_poste_i)  # Sinon création du dossier
+
+
+    fname = path_folder_poste_i + 'data_analyser.csv'
+    df.set_index('Timestamp').to_csv(fname,sep=';')
+    return 'Done'
+
 def calcul_grandeurs_caracteristiques(df_data):
 
     column_name_dt='st_va'
